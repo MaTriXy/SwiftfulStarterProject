@@ -5,6 +5,7 @@
 //  
 //
 import SwiftUI
+import SwiftfulUI
 
 @MainActor
 class LocalABTestService: ABTestService {
