@@ -33,14 +33,14 @@ struct SettingsView: View {
             if presenter.isAnonymousUser {
                 Text("Save & back-up account")
                     .rowFormatting()
-                    .anyButton(.highlight) {
+                    .asButton(.highlight) {
                         presenter.onCreateAccountPressed()
                     }
                     .removeListRowFormatting()
             } else {
                 Text("Sign out")
                     .rowFormatting()
-                    .anyButton(.highlight) {
+                    .asButton(.highlight) {
                         presenter.onSignOutPressed()
                     }
                     .removeListRowFormatting()
@@ -49,7 +49,7 @@ struct SettingsView: View {
             Text("Delete account")
                 .foregroundStyle(.red)
                 .rowFormatting()
-                .anyButton(.highlight) {
+                .asButton(.highlight) {
                     presenter.onDeleteAccountPressed()
                 }
                 .removeListRowFormatting()
@@ -70,7 +70,7 @@ struct SettingsView: View {
                 }
             }
             .rowFormatting()
-            .anyButton(.highlight) {
+            .asButton(.highlight) {
 
             }
             .disabled(!isPremium)
@@ -103,7 +103,7 @@ struct SettingsView: View {
             Text("Contact us")
                 .foregroundStyle(.blue)
                 .rowFormatting()
-                .anyButton(.highlight, action: {
+                .asButton(.highlight, action: {
                     presenter.onContactUsPressed()
                 })
                 .removeListRowFormatting()

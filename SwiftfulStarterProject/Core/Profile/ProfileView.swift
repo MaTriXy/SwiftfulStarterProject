@@ -34,7 +34,7 @@ struct ProfileView: View {
         Image(systemName: "gear")
             .font(.headline)
             .foregroundStyle(.accent)
-            .anyButton {
+            .asButton {
                 presenter.onSettingsButtonPressed()
             }
     }

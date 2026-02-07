@@ -39,7 +39,7 @@ struct DevSettingsView: View {
         Image(systemName: "xmark")
             .font(.title2)
             .fontWeight(.black)
-            .anyButton {
+            .asButton {
                 presenter.onBackButtonPressed()
             }
     }
