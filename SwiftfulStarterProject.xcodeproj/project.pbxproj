@@ -984,8 +984,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftfulThinking/SwiftfulDataManagersFirebase.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 		028744402D3396FC00C2C3E1 /* XCRemoteSwiftPackageReference "SwiftfulHaptics" */ = {

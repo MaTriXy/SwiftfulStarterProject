@@ -5,6 +5,7 @@
 //  
 //
 import SwiftUI
+import SwiftfulUI
 
 struct WelcomeDelegate {
     var eventParameters: [String: Any]? {

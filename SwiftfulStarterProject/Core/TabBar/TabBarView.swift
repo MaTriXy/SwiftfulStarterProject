@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftfulUI
 
 struct TabBarDelegate {
     let tabs: [TabBarTab]

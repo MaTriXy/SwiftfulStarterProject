@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftfulUI
 
 struct ProfileDelegate {
     var eventParameters: [String: Any]? {

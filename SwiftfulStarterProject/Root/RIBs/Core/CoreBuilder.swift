@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftfulUI
 
 @MainActor
 struct CoreBuilder: Builder {
