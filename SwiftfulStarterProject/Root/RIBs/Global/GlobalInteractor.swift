@@ -14,4 +14,8 @@ protocol GlobalInteractor {
     func prepareHaptic(option: HapticOption)
     func playHaptic(option: HapticOption)
     func tearDownHaptic(option: HapticOption)
+
+    func prepareSoundEffect(sound: SoundEffectFile, simultaneousPlayers: Int)
+    func playSoundEffect(sound: SoundEffectFile)
+    func tearDownSoundEffect(sound: SoundEffectFile)
 }
