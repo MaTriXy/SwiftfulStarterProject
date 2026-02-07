@@ -41,7 +41,7 @@ struct HomeView: View {
         .onOpenURL { url in
             presenter.handleDeepLink(url: url)
         }
-        .onNotificationRecieved(name: .pushNotification) { notification in
+        .onNotificationReceived(name: .pushNotification) { notification in
             presenter.handlePushNotificationRecieved(notification: notification)
         }
     }
