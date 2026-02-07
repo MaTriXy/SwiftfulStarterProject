@@ -11,5 +11,7 @@ protocol GlobalInteractor {
     func trackEvent(event: LoggableEvent)
     func trackScreenEvent(event: LoggableEvent)
     
+    func prepareHaptic(option: HapticOption)
     func playHaptic(option: HapticOption)
+    func tearDownHaptic(option: HapticOption)
 }
