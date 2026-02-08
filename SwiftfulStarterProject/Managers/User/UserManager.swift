@@ -10,23 +10,17 @@ import SwiftfulDataManagers
 
 @MainActor
 @Observable
-class UserManager: DocumentManagerSync<UserModel> {
+class UserManager {
+
+    private let userSyncEngine: DocumentSyncEngine<UserModel>
+    private var logger: (any DataSyncLogger)? { userSyncEngine.logger }
 
     var currentUser: UserModel? {
-        currentDocument
+        userSyncEngine.currentDocument
     }
 
-    override init<S: DMDocumentServices>(
-        services: S,
-        configuration: DataManagerSyncConfiguration = .mockNoPendingWrites(),
-        logger: (any DataLogger)? = nil
-    ) where S.T == UserModel {
-        // Initialize parent DocumentManagerSync
-        super.init(
-            services: services,
-            configuration: configuration,
-            logger: logger
-        )
+    init(userSyncEngine: DocumentSyncEngine<UserModel>) {
+        self.userSyncEngine = userSyncEngine
 
         // Add user properties to analytics if user is cached
         if let user = currentUser, let logger {
@@ -40,11 +34,11 @@ class UserManager: DocumentManagerSync<UserModel> {
         logger?.trackEvent(event: Event.logInStart(user: user))
 
         // Save user document
-        try await saveDocument(user)
+        try await userSyncEngine.saveDocument(user)
         logger?.trackEvent(event: Event.logInSuccess(user: user))
 
         // Start listening to this user document
-        try await super.logIn(auth.uid)
+        try await userSyncEngine.startListening(documentId: auth.uid)
 
         // Add user properties to analytics
         if let currentUser, let logManager = logger as? LogManager {
@@ -53,48 +47,48 @@ class UserManager: DocumentManagerSync<UserModel> {
     }
 
     func getUser() async throws -> UserModel {
-        try await getDocumentAsync()
+        try await userSyncEngine.getDocumentAsync()
     }
 
     func saveOnboardingCompleteForCurrentUser() async throws {
-        try await updateDocument(data: [
+        try await userSyncEngine.updateDocument(data: [
             UserModel.CodingKeys.didCompleteOnboarding.rawValue: true
         ])
     }
 
     func saveUserName(name: String) async throws {
-        try await updateDocument(data: [
+        try await userSyncEngine.updateDocument(data: [
             UserModel.CodingKeys.submittedName.rawValue: name
         ])
     }
 
     func saveUserEmail(email: String) async throws {
-        try await updateDocument(data: [
+        try await userSyncEngine.updateDocument(data: [
             UserModel.CodingKeys.submittedEmail.rawValue: email
         ])
     }
 
     func saveUserProfileImage(image: UIImage) async throws {
-        let uid = try getDocumentId()
+        let uid = try userSyncEngine.getDocumentId()
 
         // Upload the image
         let path = "users/\(uid)/profile"
         let url = try await FirebaseImageUploadService().uploadImage(image: image, path: path)
 
         // Update user document with image url
-        try await updateDocument(data: [
+        try await userSyncEngine.updateDocument(data: [
             UserModel.CodingKeys.submittedProfileImage.rawValue: url.absoluteString
         ])
     }
 
     func saveUserFCMToken(token: String) async throws {
-        try await updateDocument(data: [
+        try await userSyncEngine.updateDocument(data: [
             UserModel.CodingKeys.fcmToken.rawValue: token
         ])
     }
 
     func signOut() {
-        logOut()
+        userSyncEngine.stopListening()
         logger?.trackEvent(event: Event.signOut)
     }
 
@@ -102,11 +96,11 @@ class UserManager: DocumentManagerSync<UserModel> {
         logger?.trackEvent(event: Event.deleteAccountStart)
 
         let uid = try currentUserId()
-        guard let documentId = try? getDocumentId(), uid == documentId else {
+        guard let documentId = try? userSyncEngine.getDocumentId(), uid == documentId else {
             throw UserManagerError.userIdChanged
         }
-        
-        try await deleteDocument()
+
+        try await userSyncEngine.deleteDocument()
         logger?.trackEvent(event: Event.deleteAccountSuccess)
 
         signOut()
@@ -124,7 +118,15 @@ class UserManager: DocumentManagerSync<UserModel> {
         case userIdChanged
     }
 
-    enum Event: DataLogEvent {
+    static func mock(user: UserModel? = nil) -> UserManager {
+        UserManager(userSyncEngine: DocumentSyncEngine<UserModel>(
+            remote: MockRemoteDocumentService(document: user),
+            managerKey: "UserMan",
+            enableLocalPersistence: false
+        ))
+    }
+
+    enum Event: DataSyncLogEvent {
         case userPropertiesAdded(user: UserModel)
         case logInStart(user: UserModel?)
         case logInSuccess(user: UserModel?)

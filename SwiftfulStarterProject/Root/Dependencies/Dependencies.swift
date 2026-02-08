@@ -6,6 +6,8 @@
 //
 import SwiftUI
 import SwiftfulRouting
+import SwiftfulDataManagers
+import SwiftfulDataManagersFirebase
 
 @MainActor
 struct Dependencies {
@@ -32,7 +34,12 @@ struct Dependencies {
                 ConsoleService(printParameters: true, system: .stdout)
             ])
             authManager = AuthManager(service: MockAuthService(user: isSignedIn ? .mock() : nil), logger: logManager)
-            userManager = UserManager(services: MockUserServices(document: isSignedIn ? UserModel.mock : nil), configuration: Dependencies.userManagerConfiguration, logger: logManager)
+            userManager = UserManager(userSyncEngine: DocumentSyncEngine<UserModel>(
+                remote: MockRemoteDocumentService(document: isSignedIn ? UserModel.mock : nil),
+                managerKey: "UserMan",
+                enableLocalPersistence: false,
+                logger: logManager
+            ))
             
             // Note: configure AB tests for UI tests here
             //
@@ -56,7 +63,12 @@ struct Dependencies {
                 FirebaseCrashlyticsService()
             ])
             authManager = AuthManager(service: FirebaseAuthService(), logger: logManager)
-            userManager = UserManager(services: ProductionUserServices(), configuration: Dependencies.userManagerConfiguration, logger: logManager)
+            userManager = UserManager(userSyncEngine: DocumentSyncEngine<UserModel>(
+                remote: FirebaseRemoteDocumentService(collectionPath: { "users" }),
+                managerKey: "UserMan",
+                enableLocalPersistence: true,
+                logger: logManager
+            ))
             abTestManager = ABTestManager(service: LocalABTestService(), logManager: logManager)
             purchaseManager = PurchaseManager(
                 service: RevenueCatPurchaseService(apiKey: Keys.revenueCatAPIKey), // StoreKitPurchaseService(),
@@ -74,8 +86,12 @@ struct Dependencies {
                 FirebaseCrashlyticsService()
             ])
             authManager = AuthManager(service: FirebaseAuthService(), logger: logManager)
-            userManager = UserManager(services: ProductionUserServices(), configuration: Dependencies.userManagerConfiguration, logger: logManager)
-
+            userManager = UserManager(userSyncEngine: DocumentSyncEngine<UserModel>(
+                remote: FirebaseRemoteDocumentService(collectionPath: { "users" }),
+                managerKey: "UserMan",
+                enableLocalPersistence: true,
+                logger: logManager
+            ))
             abTestManager = ABTestManager(service: FirebaseABTestService(), logManager: logManager)
             purchaseManager = PurchaseManager(
                 service: RevenueCatPurchaseService(apiKey: Keys.revenueCatAPIKey),
@@ -126,11 +142,6 @@ struct Dependencies {
         progressKey: Constants.progressKey
     )
     
-    static let userManagerConfiguration = DataManagerSyncConfiguration(
-        managerKey: "UserMan",
-        enablePendingWrites: true
-    )
-
 }
 
 @MainActor
@@ -169,7 +180,7 @@ class DevPreview {
 
     init(isSignedIn: Bool = true) {
         self.authManager = AuthManager(service: MockAuthService(user: isSignedIn ? .mock() : nil))
-        self.userManager = UserManager(services: MockUserServices(document: isSignedIn ? .mock : nil), configuration: DataManagerSyncConfiguration.mockNoPendingWrites())
+        self.userManager = UserManager.mock(user: isSignedIn ? .mock : nil)
         self.logManager = LogManager(services: [])
         self.abTestManager = ABTestManager(service: MockABTestService())
         self.purchaseManager = PurchaseManager(service: MockPurchaseService())

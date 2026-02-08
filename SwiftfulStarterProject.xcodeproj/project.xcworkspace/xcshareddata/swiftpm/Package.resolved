@@ -1,5 +1,5 @@
 {
-  "originHash" : "5b0775425588c591d2c93a5fa54e6e2c7a18684e47dfefa66cefc4bdd8a9a95b",
+  "originHash" : "aade1e444926f204b12313d170f3419207b7eebbdcacec82ed167f08155a8f47",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -249,8 +249,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulDataManagers.git",
       "state" : {
-        "revision" : "ad018a9001fb2ebefc3629bb0ede292fe69b56fc",
-        "version" : "1.0.4"
+        "revision" : "daab3d14f4e7e795fd2c715799e2814c8db00ae0",
+        "version" : "2.0.0"
       }
     },
     {
@@ -258,8 +258,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulDataManagersFirebase.git",
       "state" : {
-        "revision" : "9d33e45eab56d92e834f67e5f87d0b1aa01a48cc",
-        "version" : "1.0.2"
+        "revision" : "57b9cd6532a03675542a256036da22dedde8259c",
+        "version" : "2.0.2"
       }
     },
     {
@@ -375,8 +375,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulRouting",
       "state" : {
-        "revision" : "f169d9a96741a3ec520d21d7da3cae06d7590700",
-        "version" : "6.1.8"
+        "revision" : "293106d9a3630a0350e5fee15bddcbff7d7226a4",
+        "version" : "6.1.9"
       }
     },
     {
