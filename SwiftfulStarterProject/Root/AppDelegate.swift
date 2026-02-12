@@ -84,7 +84,7 @@ extension AppDelegate: MessagingDelegate {
 }
 
 enum BuildConfiguration {
-    case mock(isSignedIn: Bool), dev, prod
+    case mock(isSignedIn: Bool, addLogging: Bool = true), dev, prod
     
     func configure() {
         switch self {
