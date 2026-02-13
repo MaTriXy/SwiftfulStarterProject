@@ -81,23 +81,33 @@ extension CoreBuilder {
             content: {
                 switch interactor.startingModuleId {
                 case Constants.tabbarModuleId:
-                    RouterView(id: Constants.tabbarModuleId, addNavigationStack: false, addModuleSupport: true) { _ in
-                        coreModuleEntryView()
+                    let delegate = ModuleWrapperDelegate(moduleId: Constants.tabbarModuleId)
+                    RouterView(id: delegate.moduleId, addNavigationStack: false, addModuleSupport: true) { router in
+                        coreModuleEntryView(router: router, delegate: delegate)
                     }
                 default:
-                    RouterView(id: Constants.onboardingModuleId, addNavigationStack: false, addModuleSupport: true) { _ in
-                        onboardingModuleEntryView()
+                    let delegate = ModuleWrapperDelegate(moduleId: Constants.onboardingModuleId)
+                    RouterView(id: delegate.moduleId, addNavigationStack: false, addModuleSupport: true) { router in
+                        onboardingModuleEntryView(router: router, delegate: delegate)
                     }
                 }
             }
         )
     }
 
-    func onboardingModuleEntryView() -> some View {
-        onboardingFlow()
+    func onboardingModuleEntryView(router: AnyRouter, delegate: ModuleWrapperDelegate) -> some View {
+        moduleWrapperView(router: router, delegate: delegate) {
+            onboardingFlow()
+        }
     }
-    
-    func coreModuleEntryView() -> some View {
+
+    func coreModuleEntryView(router: AnyRouter, delegate: ModuleWrapperDelegate) -> some View {
+        moduleWrapperView(router: router, delegate: delegate) {
+            coreModuleTabBarView()
+        }
+    }
+
+    private func coreModuleTabBarView() -> some View {
         let tabs: [TabBarTab] = [
             TabBarTab(title: "Home", systemImage: "house.fill", destination: { router in
                 homeView(router: router, delegate: HomeDelegate())
@@ -117,6 +127,7 @@ extension CoreBuilder {
             )
         )
     }
+
     
     private func sampleGamificationViewForMock(router: AnyRouter) -> some View {
         List {
@@ -143,8 +154,9 @@ extension CoreBuilder {
 extension CoreRouter {
     
     func switchToCoreModule() {
-        router.showModule(.trailing, id: Constants.tabbarModuleId, onDismiss: nil) { _ in
-            self.builder.coreModuleEntryView()
+        let delegate = ModuleWrapperDelegate(moduleId: Constants.tabbarModuleId)
+        router.showModule(.trailing, id: delegate.moduleId, onDismiss: nil) { router in
+            self.builder.coreModuleEntryView(router: router, delegate: delegate)
         }
     }
     
@@ -153,8 +165,9 @@ extension CoreRouter {
 extension CoreRouter {
     
     func switchToOnboardingModule() {
-        router.showModule(.trailing, id: Constants.onboardingModuleId, onDismiss: nil) { _ in
-            self.builder.onboardingModuleEntryView()
+        let delegate = ModuleWrapperDelegate(moduleId: Constants.onboardingModuleId)
+        router.showModule(.trailing, id: delegate.moduleId, onDismiss: nil) { router in
+            self.builder.onboardingModuleEntryView(router: router, delegate: delegate)
         }
     }
 }
