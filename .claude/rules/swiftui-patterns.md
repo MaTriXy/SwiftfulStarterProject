@@ -72,10 +72,76 @@ Rules for building SwiftUI views and components in this project.
 
 ## Previews
 
-- Create multiple `#Preview` blocks: full data, partial data, loading, empty
-- Name each preview: `#Preview("Full Data") { ... }`
-- Use `DevPreview.shared.container()` for dependency injection
+- Create multiple named `#Preview` blocks for different states
+- Use `DevPreview.shared.container()` for the default mock container
+- To customize preview state, re-register specific services on the container to override defaults
 - Wrap in `RouterView` when the view needs routing context
+
+```swift
+#Preview("Default") {
+    let container = DevPreview.shared.container()
+    let builder = CoreBuilder(interactor: CoreInteractor(container: container))
+    return RouterView { router in
+        builder.screenView(router: router, delegate: ScreenDelegate())
+    }
+}
+
+#Preview("Premium User") {
+    let container = DevPreview.shared.container()
+    container.register(PurchaseManager.self, service: PurchaseManager(service: MockPurchaseService(activeEntitlements: [.mock])))
+    let builder = CoreBuilder(interactor: CoreInteractor(container: container))
+    return RouterView { router in
+        builder.screenView(router: router, delegate: ScreenDelegate())
+    }
+}
+
+#Preview("Signed Out") {
+    let container = DevPreview.shared.container()
+    container.register(AuthManager.self, service: AuthManager(service: MockAuthService(user: nil)))
+    let builder = CoreBuilder(interactor: CoreInteractor(container: container))
+    return RouterView { router in
+        builder.screenView(router: router, delegate: ScreenDelegate())
+    }
+}
+```
+
+Common overrides:
+- Auth state: `container.register(AuthManager.self, service: AuthManager(service: MockAuthService(user: .mock(isAnonymous: true))))`
+- Premium: `container.register(PurchaseManager.self, service: PurchaseManager(service: MockPurchaseService(activeEntitlements: [.mock])))`
+- AB tests: `container.register(ABTestManager.self, service: ABTestManager(service: MockABTestService(someTest: true)))`
+- Slow/error states: `container.register(SomeService.self, service: MockSomeService(delay: 20, showError: true))`
+
+### Screen vs Modal Previews
+
+**Screens** (push, sheet, fullScreenCover) — use `RouterView` + builder as normal.
+
+**Custom modals** (overlay components via `router.showModal`) — trigger via the CoreRouter method so it displays exactly as it will in the app:
+```swift
+#Preview("Modal") {
+    let container = DevPreview.shared.container()
+    let interactor = CoreInteractor(container: container)
+    let builder = CoreBuilder(interactor: interactor)
+
+    return RouterView { router in
+        let router = CoreRouter(router: router, builder: builder)
+
+        return Text("Show modal")
+            .onFirstAppear {
+                router.showProfileModal(avatar: .mock, onXMarkPressed: { })
+            }
+    }
+}
+```
+
+### Alerts
+
+Use `router.showAlert()` from GlobalRouter — never native `.alert()` modifier.
+
+- `router.showSimpleAlert(title:subtitle:)` — basic alert with OK button
+- `router.showAlert(error:)` — display an error message
+- `router.showAlert(.alert, title:subtitle:buttons:)` — alert with custom buttons
+- `router.showAlert(.confirmationDialog, title:subtitle:buttons:)` — action sheet style
+- `router.dismissAlert()` — dismiss programmatically
 
 ## Lifecycle Modifiers
 
