@@ -5,7 +5,7 @@ description: Scaffold a unit test file using the Swift Testing framework. Use wh
 
 # Creating Test
 
-Scaffold a unit test file using Swift Testing (`@Test`, `#expect`) — not XCTest.
+Scaffold a unit test file using Swift Testing (`@Test`, `#expect`, `#require`) — not XCTest.
 
 ## Steps
 
@@ -52,13 +52,16 @@ struct {ClassName}_Tests {
 
 ## Key Patterns
 
-- **Use Swift Testing** — `@Test` + `#expect`, NOT XCTest classes
+- **Use Swift Testing** — `@Test` + `#expect` + `#require`, NOT XCTest classes
 - **Use structs** for test containers, not classes
 - **`@testable import SwiftfulStarterProject`** — gives access to internal types
-- **`@MainActor`** on tests that test `@MainActor` types (managers, presenters)
+- **`@MainActor`** on tests that test `@MainActor` types (managers, presenters) — do NOT use `@MainActor` on non-UI tests
 - **Inject mock services** — test the manager/presenter in isolation, never use Prod services
 - **Given/When/Then comments** inside each test method — do NOT put these keywords in the method name
 - **No `test` prefix needed** — Swift Testing uses `@Test` macro instead
+- **Display names** — `@Test("Descriptive name")` for human-readable failure output
+- **`#require` for preconditions** — use `try #require(value)` to unwrap optionals and halt early instead of force-unwrapping
+- **Parameterize** — use `@Test(arguments:)` instead of copy-pasting test methods that differ only in input
 - **Method naming**: descriptive camelCase (e.g., `signOutClearsUser`, `loadDataWithErrorSetsErrorState`)
 - **Struct naming**: `_Tests` suffix (e.g., `UserManager_Tests`)
 
