@@ -167,4 +167,56 @@ The starter project includes the following dependencies, which can be easily rem
 
 </details>
 
+## Claude Code Integration
+
+<details>
+<summary> Details (Click to expand) </summary>
+<br>
+
+This project includes a full [Claude Code](https://docs.anthropic.com/en/docs/claude-code) configuration for AI-assisted development. Claude understands the VIPER + RIBs architecture, enforces project conventions, and can scaffold new features that follow existing patterns.
+
+### What's Included
+
+| Category | Location | Description |
+|----------|----------|-------------|
+| **Rules** | `.claude/rules/` | Architecture, code style, SwiftUI patterns, manager lifecycle, commit conventions. Always loaded into context. |
+| **Skills** | `.claude/skills/` | Step-by-step templates for creating screens, managers, components, models, tests, and more. Loaded on demand. |
+| **Agents** | `.claude/agents/` | Specialized agents for planning features, scaffolding files, and reviewing code. |
+| **Settings** | `.claude/settings.json` | Pre-configured permissions for safe file operations and build commands. |
+| **MCP Servers** | `.mcp.json` | Xcode and XcodeBuildMCP integration for project inspection and build verification. |
+
+### Available Skills
+
+- `creating-screen` — VIPER screen (View, Presenter, Router, Interactor)
+- `creating-manager` — Manager with service protocol + Mock/Prod implementations
+- `creating-component` — Reusable UI component
+- `creating-model` — Codable/Sendable model with mocks
+- `creating-test` — Swift Testing unit test
+- `creating-module` — Top-level navigation module
+- `creating-paywall` — Paywall with AB test variants
+- `creating-ab-test` — AB test service + mock
+- `creating-view-modifier` — ViewModifier + View extension
+- `creating-extension` — Type extension file
+- `adding-package` — SPM package integration
+- `adding-deep-link` — Deep link route
+- `refactoring-screen` — Rename a VIPER screen across all files
+
+### Available Agents
+
+- **feature-planner** — Plans architecture before implementation. Read-only, uses Opus for reasoning.
+- **scaffolder** — Creates multi-file features with RIBs wiring. Batches work for efficiency.
+- **code-reviewer** — Reviews code against all project rules. Outputs structured findings with verdicts.
+
+### Getting Started with Claude Code
+
+1. Install [Claude Code](https://docs.anthropic.com/en/docs/claude-code)
+2. (Optional) Install the Firebase plugin: `claude plugin add firebase`
+3. Open the project directory and start a session: `claude`
+4. Try creating a screen: *"Create a new screen called Settings"*
+5. Or ask for a plan: *"Plan a feature for user profile editing"*
+
+Claude will automatically load the project rules and use the appropriate skills and agents.
+
+</details>
+
 
