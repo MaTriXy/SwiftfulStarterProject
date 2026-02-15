@@ -8,6 +8,10 @@ skills:
   - creating-screen
   - creating-manager
   - creating-component
+mcpServers:
+  - xcode
+  - XcodeBuildMCP
+  - firebase
 ---
 
 # Scaffolder

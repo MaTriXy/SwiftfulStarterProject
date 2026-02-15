@@ -3,6 +3,9 @@ name: code-reviewer
 description: Systematic code review against project rules. Use after implementing a feature, before committing. Checks VIPER compliance, SwiftUI patterns, Swift 6 concurrency, code style, and manager lifecycle.
 model: sonnet
 tools: Read, Grep, Glob
+mcpServers:
+  - xcode
+  - XcodeBuildMCP
 ---
 
 # Code Reviewer
