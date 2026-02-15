@@ -68,14 +68,20 @@ Scaffolding templates in `.claude/skills/`:
 
 ## Agents
 
-- `feature-planner` — Plans architecture before implementation (read-only, Opus)
-- `scaffolder` — Creates screens/managers/components with RIBs wiring (Sonnet)
-- `code-reviewer` — Reviews code against project rules (read-only, Sonnet)
+- `feature-planner` — Plans architecture before implementation (read-only, Opus, memory: project)
+- `scaffolder` — Creates files with all 13 skills preloaded, RIBs wiring (Sonnet, memory: project)
+- `code-reviewer` — Reviews code against project rules (read-only, Sonnet, memory: project)
+
+## Commands
+
+- `/scaffold` — Scaffold new files (invokes scaffolder agent)
+- `/review` — Review code against project rules (invokes code-reviewer agent)
+- `/plan` — Plan a feature before implementing (invokes feature-planner agent)
 
 ## Workflow
 
-1. **Plan first** for non-trivial features (use feature-planner or plan mode)
-2. **Use skills** when creating new files — they have the exact templates
-3. **Use scaffolder** for multi-file creation (4+ files with RIBs wiring)
+1. **Plan first** for non-trivial features — `/plan` or plan mode
+2. **Scaffold** new files — `/scaffold` for multi-file creation with templates
+3. **Use skills** directly for single-file creation
 4. **Commit often** with the prefix system from commit-rules.md
-5. **Review before shipping** with code-reviewer
+5. **Review before shipping** — `/review` to check against project rules

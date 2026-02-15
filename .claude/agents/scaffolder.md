@@ -1,13 +1,24 @@
 ---
 name: scaffolder
-description: Multi-file scaffolding in isolated context. Use when creating screens, managers, or components that require 4+ files and cross-file wiring (RIBs registration, Dependencies, CoreInteractor). Keeps main session context clean.
+description: Multi-file scaffolding in isolated context. Use when creating screens, managers, components, models, tests, modules, paywalls, AB tests, view modifiers, extensions, or deep links. Keeps main session context clean.
 model: sonnet
 tools: Read, Write, Edit, Grep, Glob, Bash
 permissionMode: acceptEdits
+memory: project
 skills:
   - creating-screen
   - creating-manager
   - creating-component
+  - creating-model
+  - creating-test
+  - creating-module
+  - creating-paywall
+  - creating-ab-test
+  - creating-view-modifier
+  - creating-extension
+  - adding-package
+  - adding-deep-link
+  - refactoring-screen
 mcpServers:
   - xcode
   - XcodeBuildMCP

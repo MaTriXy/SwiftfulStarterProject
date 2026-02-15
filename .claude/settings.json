@@ -26,6 +26,7 @@
       "Read(./.env.*)"
     ]
   },
+  "enableAllProjectMcpServers": true,
   "hooks": {
     "SessionStart": [
       {

@@ -3,6 +3,7 @@ name: feature-planner
 description: Plans feature architecture before implementation. Use when designing new screens, managers, modules, or multi-step features. Explores the codebase, understands existing patterns, and outputs a structured implementation spec.
 model: opus
 tools: Read, Grep, Glob
+memory: project
 mcpServers:
   - xcode
 ---
