@@ -19,7 +19,10 @@ Rules for building SwiftUI views and components in this project.
 - `ImageLoaderView` handles resizing internally — just apply `.frame()` and optionally `.clipShape()`
 
 ### Layout
-- Prefer `frame(maxWidth:)` or `frame(maxHeight:)` with alignment over `Spacer()`
+- NEVER use `Spacer()` — use `frame(maxWidth: .infinity)` or `frame(maxHeight: .infinity)` with alignment instead. `Spacer()` is almost never needed and makes layouts harder to control. Examples:
+  - Push content to one side: `.frame(maxWidth: .infinity, alignment: .leading)` instead of `HStack { Text("Hello"); Spacer() }`
+  - Push content to top: `.frame(maxHeight: .infinity, alignment: .top)` instead of `VStack { Text("Hello"); Spacer() }`
+  - Center with remaining space: `.frame(maxWidth: .infinity)` (centered by default)
 - Use spacing parameters in stacks: `VStack(spacing: 12)` instead of extra padding
 - Standard spacing values: 4, 8, 12, 16, 24
 - `.ignoresSafeArea()` on full-bleed background images only
