@@ -55,6 +55,72 @@ Each screen's Presenter holds `router` and `interactor` as protocol types (e.g.,
 - No UI logic, no business logic, no navigation
 - May chain calls across multiple managers (e.g., get userId from AuthManager then pass to another manager)
 
+## Delegates (Passing Data Between Screens)
+
+IMPORTANT: Delegates are the mechanism for passing data between screens. They are structs held by the View, NEVER by the Presenter.
+
+- Prefer fetching data via Interactor over passing it through delegates. Delegates are only for data that exists in memory between screens and is NOT available through the manager/database layer (e.g., onboarding flow selections, UI configuration, callbacks). If the data can be fetched from a manager or database, fetch it in the Presenter via Interactor instead.
+- Define a `struct XDelegate` in the same file as the View, with an `eventParameters` computed property for analytics
+- The **View holds** the delegate as `let delegate: XDelegate`
+- The **View passes** the delegate to the Presenter through method parameters: `presenter.onViewAppear(delegate: delegate)`
+- The **Presenter NEVER stores** the delegate — it only receives it as a method parameter
+- NEVER inject delegate data into the Presenter through `init` — the Presenter init only takes `interactor` and `router`
+- When navigating to the next screen, the Presenter creates the next screen's delegate with relevant data and passes it to the Router
+
+```swift
+// Delegate definition (in the View file)
+struct DetailDelegate {
+    var item: ItemModel
+
+    var eventParameters: [String: Any]? {
+        item.eventParameters
+    }
+}
+
+// View — holds delegate, passes to Presenter via methods
+struct DetailView: View {
+    @State var presenter: DetailPresenter
+    let delegate: DetailDelegate
+
+    var body: some View {
+        Text(delegate.item.title)          // View can read delegate for display
+            .onAppear {
+                presenter.onViewAppear(delegate: delegate)  // Pass to Presenter
+            }
+    }
+}
+
+// Presenter — receives delegate per method, NEVER stores it
+@Observable @MainActor
+class DetailPresenter {
+    private let interactor: DetailInteractor
+    private let router: DetailRouter
+
+    init(interactor: DetailInteractor, router: DetailRouter) {
+        self.interactor = interactor
+        self.router = router
+        // NO delegate here
+    }
+
+    func onViewAppear(delegate: DetailDelegate) {
+        interactor.trackScreenEvent(event: Event.onAppear(delegate: delegate))
+    }
+}
+
+// Builder — passes delegate to View, NOT to Presenter
+extension CoreBuilder {
+    func detailView(router: AnyRouter, delegate: DetailDelegate) -> some View {
+        DetailView(
+            presenter: DetailPresenter(
+                interactor: interactor,
+                router: CoreRouter(router: router, builder: self)
+            ),
+            delegate: delegate
+        )
+    }
+}
+```
+
 ## Components (Reusable Views)
 
 Components are NOT screens. They are child views used WITHIN screen Views. A screen View composes Components by passing data from the Presenter down and wiring closures back to Presenter methods.
