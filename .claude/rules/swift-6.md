@@ -33,6 +33,7 @@ Rules for Swift 6 concurrency, general Swift conventions, and project-specific p
 
 - Break larger logic into smaller functions, even if called once — the function name should be self-documenting
 - Prefer descriptive function names over comments explaining what the code does
+- NEVER put generic utility functions (e.g., `withThrowingTimeout`, `retry`, `debounce`) directly in a View, Presenter, or Manager. Always place them in the `Extensions/` folder as a type extension (e.g., `Task+EXT.swift`) or in `Utilities/`. These functions are reusable — they don't belong in any single screen or manager.
 
 ### Naming Conventions
 
