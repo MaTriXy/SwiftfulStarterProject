@@ -15,6 +15,7 @@ Rules for Swift 6 concurrency, general Swift conventions, and project-specific p
 - `guard let` / `if let` over force unwrapping — NEVER force unwrap without a documented reason
 - `[weak self]` in escaping closures on reference types (classes, actors)
 - No `[weak self]` needed in `Task { }` inside struct methods or `@MainActor` classes that control the task lifecycle
+- NEVER initialize optional variables with `= nil` — it is redundant. Write `var name: String?` not `var name: String? = nil`
 
 ### Logging
 

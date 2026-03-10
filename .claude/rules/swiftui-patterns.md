@@ -70,7 +70,7 @@ Rules for building SwiftUI views and components in this project.
 | `@State private var` | Local UI animation state only |
 | `@Binding var` | Child needs to modify parent's state (rare in VIPER — prefer injecting a value + closure instead) |
 | `@Bindable var` | Injected `@Observable` needing `$` bindings (rarely needed in VIPER) |
-| `let` / `var` | `let` is ok but prefer `var` and optional for injected data — allows customizing the implicit init with defaults |
+| `let` / `var` | `let` is ok but prefer `var` and optional for injected data — allows customizing the implicit init with defaults. NEVER write `= nil` on optional vars — it is redundant and triggers SwiftLint warnings. Write `var title: String?` not `var title: String? = nil` |
 
 
 ## Previews
