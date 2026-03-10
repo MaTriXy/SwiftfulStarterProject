@@ -49,7 +49,7 @@ struct Dependencies {
                 enumTest: nil
             )
             abTestManager = ABTestManager(service: abTestService, logManager: logManager)
-            purchaseManager = PurchaseManager(service: MockPurchaseService(), logger: logManager)
+            purchaseManager = PurchaseManager(service: MockPurchaseService(activeEntitlements: [], availableProducts: AnyProduct.mocks), logger: logManager)
             appState = AppState(startingModuleId: isSignedIn ? Constants.tabbarModuleId : Constants.onboardingModuleId)
             hapticManager = HapticManager(logger: logManager)
             streakManager = StreakManager(services: MockStreakServices(), configuration: Dependencies.streakConfiguration, logger: logManager)
