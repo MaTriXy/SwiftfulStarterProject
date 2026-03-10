@@ -126,6 +126,12 @@ Use Mock for most development. Conditional compilation:
 #endif
 ```
 
+## Building and Previews
+
+- NEVER auto-build after every small change. Building is slow — only build when the user explicitly asks, or after large multi-file changes (e.g., planned features, scaffolding multiple screens, major refactors).
+- Use `mcp__xcode__XcodeListNavigatorIssues` or `mcp__xcode__RenderPreview` to check for errors without a full build when needed.
+- NEVER use `mcp__XcodeBuildMCP__build_sim` or `mcp__XcodeBuildMCP__build_run_sim` for single-file edits or minor changes.
+
 ## Module Navigation
 
 Two main modules managed by `AppView`:

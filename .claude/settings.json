@@ -14,7 +14,9 @@
       "Bash(git diff *)",
       "Bash(git log *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "mcp__XcodeBuildMCP__*",
+      "mcp__xcode__*"
     ],
     "deny": [
       "Bash(rm -rf *)",
