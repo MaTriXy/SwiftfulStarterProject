@@ -61,6 +61,16 @@ IMPORTANT: Every model must include these:
 - `static var mock: Self` and `static var mocks: [Self]` for previews and testing
 - All properties `var` and optional where possible for flexible initialization
 
+## Enums
+
+Enums should follow the same conventions as models where applicable:
+
+- `StringIdentifiable` conformance — use `var id: String { rawValue }` for `String` raw values or return a meaningful identifier
+- `eventParameters: [String: Any]` computed property for analytics
+- `Codable`, `Sendable` conformance
+- `static var mock: Self` for previews and testing
+- `CaseIterable` when all cases should be enumerable
+
 ## MainActor
 
 - `@MainActor` is correct on Presenters, Managers, Interactors, DependencyContainer, and all UI-touching code
