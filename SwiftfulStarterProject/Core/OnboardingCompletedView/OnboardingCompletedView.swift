@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftfulUI
 
 struct OnboardingCompletedDelegate {
     var eventParameters: [String: Any]? {

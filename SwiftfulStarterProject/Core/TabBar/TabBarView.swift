@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftfulUI
 
 struct TabBarDelegate {
     let tabs: [TabBarTab]
@@ -62,7 +63,11 @@ struct TabBarView: View {
     let container = DevPreview.shared.container()
     let interactor = CoreInteractor(container: container)
     let builder = CoreBuilder(interactor: interactor)
-    return builder.coreModuleEntryView()
+    let delegate = ModuleWrapperDelegate(moduleId: Constants.tabbarModuleId)
+
+    return RouterView { router in
+        builder.coreModuleEntryView(router: router, delegate: delegate)
+    }
 }
 
 extension CoreBuilder {

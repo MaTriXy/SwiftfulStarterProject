@@ -1,155 +1,87 @@
-# CLAUDE.md
+# SwiftfulStarterProject
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+iOS app using SwiftUI with VIPER + RIBs architecture. Swift 6, async/await, @Observable.
 
----
+## Architecture
 
-## 📚 Documentation Structure
-
-This documentation is organized into focused files for better maintainability. Each file covers a specific aspect of the project:
-
-### Core Documentation
-
-- **Project Architecture & Structure**: @.claude/docs/project-structure.md
-  - Project overview and architecture patterns
-  - Build configurations (Mock, Dev, Prod)
-  - Manager system and dependencies
-  - Common development workflows
-
-- **VIPER Architecture Rules**: @.claude/docs/viper-architecture.md
-  - Screen Views (VIPER Pattern)
-  - Reusable Components
-  - Presenter, Router, and Interactor layer rules
-  - Layout best practices
-  - Data flow summary
-
-- **Commit Style Guidelines**: @.claude/docs/commit-guidelines.md
-  - Commit message format and rules
-  - Only applies when explicitly asked to "commit"
-
-- **Package Dependencies**: @.claude/docs/package-dependencies.md
-  - Project-specific implementation of all SwiftfulThinking packages
-  - How THIS project actually uses each package (not general capabilities)
-  - Initialization patterns, configurations, and integration examples
-  - Critical for understanding package coordination in this architecture
-
-- **Package Quick Reference**: @.claude/docs/package-quick-reference.md
-  - 1-minute overview of each package
-  - Copy/paste code snippets for common tasks
-  - Common mistakes to avoid
-  - Quick lookup for frequently used features
-
-### Required Actions
-
-When the user triggers specific requests, follow these action workflows:
-
-- **ACTION 1 - Create New Screen**: @.claude/docs/action-create-screen.md
-  - Triggers: "create new screen", "create screen", "new screen", "add new screen"
-  - Uses Xcode VIPER templates to generate all 4 files
-
-- **ACTION 2 - Create Reusable Component**: @.claude/docs/action-create-component.md
-  - Triggers: "create component", "new component", "create reusable view", "add component"
-  - Creates dumb UI components with injected data and callbacks
-
-- **ACTION 3 - Create New Manager**: @.claude/docs/action-create-manager.md
-  - Triggers: "add manager", "new manager", "create manager", "add data manager"
-  - Supports both Service Managers and Data Sync Managers (SwiftfulDataManagers)
-
-- **ACTION 4 - Create Data Model**: @.claude/docs/action-create-model.md
-  - Triggers: "create data model", "new model", "create model", "new data type"
-  - Uses Xcode model templates for consistency
-
----
-
-## 🎯 Quick Start Guide
-
-### For New Screens
-1. Check if templates are installed: `ls ~/Library/Developer/Xcode/Templates/MyTemplates/VIPERTemplate.xctemplate`
-2. If not installed, get them from: https://github.com/SwiftfulThinking/XcodeTemplates
-3. Follow the steps in ACTION 1 documentation
-
-### For New Components
-- Always create in `/Components/Views/` (or `/Components/Modals/` for modals)
-- Make all data properties optional for flexibility
-- Never include business logic - components are dumb UI
-- Follow the rules in ACTION 2 documentation
-
-### For New Managers
-- Decide: Service Manager (most common) or Data Sync Manager (for Firestore sync)
-- Service Managers use protocol-based pattern with Mock/Prod implementations
-- Data Sync Managers extend SwiftfulDataManagers classes
-- Follow the steps in ACTION 3 documentation
-
-### For New Models
-- Models live in `/Managers/[ManagerName]/Models/`
-- Must conform to: `StringIdentifiable, Codable, Sendable, DMProtocol`
-- Use snake_case for CodingKeys raw values
-- Follow the steps in ACTION 4 documentation
-
----
-
-## ⚡ Critical Rules
-
-### File Creation (ALWAYS use Write/Edit tools)
-- ✅ This project uses Xcode 15+ File System Synchronization
-- ✅ Files created in `SwiftfulStarterProject/` folder automatically appear in Xcode
-- ✅ ALWAYS use Write/Edit tools to create .swift files (unless documentation)
-- ✅ Files automatically included in build - no manual Xcode steps needed
-- ❌ Exception: If file created outside main folder, provide path for manual add (rare)
-
-See @.claude/docs/project-structure.md for details on `PBXFileSystemSynchronizedRootGroup`
-
-### VIPER Data Flow (NEVER skip layers)
 ```
-View → Presenter → Interactor → Manager
+View → Presenter → Interactor → Manager (never skip layers)
 ```
 
-**NEVER do this:**
-- ❌ View → Manager
-- ❌ View → Interactor
-- ❌ Presenter → Manager
+- **View**: SwiftUI view, owns a `@State var presenter`
+- **Presenter**: `@Observable @MainActor`, all business logic, calls interactor/router
+- **Interactor**: Protocol extending `GlobalInteractor`, implemented on `CoreInteractor`
+- **Router**: Protocol extending `GlobalRouter`, implemented on `CoreRouter`
+- **Manager**: Owns data/services, injected via `Dependencies.swift`
+- **Component**: Dumb UI — no business logic, no Presenters, all data injected
 
-### Component Rules
-- ✅ NO @State for data (only for UI animations)
-- ✅ NO business logic
-- ✅ ALL data is injected via init
-- ✅ Make properties optional when possible
-- ✅ ALL actions are closures
+Every new screen registers in CoreRouter, CoreInteractor, and CoreBuilder.
 
-### Layout Best Practices
-- ✅ PREFER `.frame(maxWidth: .infinity, alignment: .leading)` over `Spacer()`
-- ✅ ALWAYS use `ImageLoaderView` for URL images (never AsyncImage)
-- ✅ ALWAYS use `.anyButton()` or `.asButton()` modifier instead of `Button()` wrapper
+## Build Configurations
 
-### Analytics
-- ✅ ALL Presenter methods MUST track events
-- ✅ ALL Manager methods MUST track events with logger
+- **Mock**: No Firebase, mock data. Use for 90% of development.
+- **Development**: Real Firebase, dev credentials.
+- **Production**: Real Firebase, prod credentials.
 
----
+## File Creation
 
-## 🔧 Build Configurations
+This project uses Xcode 16+ File System Synchronization. Files created in `SwiftfulStarterProject/` automatically appear in Xcode — no manual project file edits needed.
 
-- **Mock**: Fast development, no Firebase, mock data
-- **Development**: Real Firebase with dev credentials
-- **Production**: Real Firebase with production credentials
+## Key Conventions
 
-Use Mock for 90% of development.
+- `.asButton()` instead of `Button()` wrapper
+- `ImageLoaderView` instead of `AsyncImage`
+- `router.showAlert()` instead of `.alert()` modifier
+- `LogManager` instead of `print()`
+- No `Task.detached`, no `DispatchQueue`, no `@unchecked Sendable`
+- `@MainActor` only on UI-related code (Presenters, Managers, Interactors)
+- All Presenter/Manager methods must track analytics events
 
----
+## Rules (always loaded)
 
-## 📖 Additional Resources
+Detailed conventions are in `.claude/rules/`:
 
-- Official Documentation: https://www.swiftful-thinking.com/offers/REyNLwwH
-- Xcode Templates: https://github.com/SwiftfulThinking/XcodeTemplates
-- SwiftfulRouting: https://github.com/SwiftfulThinking/SwiftfulRouting
+- `viper-architecture.md` — VIPER layers, data flow, RIBs registration
+- `project-structure.md` — folder layout, managers, naming conventions
+- `swift-6.md` — concurrency, code style, model requirements
+- `swiftui-patterns.md` — UI patterns, property wrappers, deprecated APIs
+- `manager-lifecycle.md` — registration, login/logout, analytics
+- `commit-rules.md` — prefix system, message format
 
----
+## Skills (loaded on demand)
 
-## 💡 Need Help?
+Scaffolding templates in `.claude/skills/`:
 
-For detailed information on any topic:
-- **Architecture questions**: Check project-structure.md
-- **VIPER pattern questions**: Check viper-architecture.md
-- **Creating new features**: Check the relevant ACTION document
+- `creating-screen` — VIPER screen (View, Presenter, Router, Interactor)
+- `creating-manager` — Manager with service protocol + Mock/Prod
+- `creating-component` — Dumb UI component
+- `creating-model` — Codable/Sendable model with mocks
+- `creating-test` — Swift Testing unit test
+- `creating-module` — Top-level navigation module
+- `creating-paywall` — Paywall with AB test variants
+- `creating-ab-test` — AB test service + mock
+- `creating-view-modifier` — ViewModifier + View extension
+- `creating-extension` — Type extension file
+- `adding-package` — SPM package integration
+- `adding-deep-link` — Deep link route
+- `refactoring-screen` — Rename a VIPER screen
 
-All documentation files are in `.claude/docs/` directory.
+## Agents
+
+- `feature-planner` — Plans architecture before implementation (read-only, Opus, memory: project)
+- `scaffolder` — Creates files with all 13 skills preloaded, RIBs wiring (Sonnet, memory: project)
+- `code-reviewer` — Reviews code against project rules (read-only, Sonnet, memory: project)
+
+## Commands
+
+- `/scaffold` — Scaffold new files (invokes scaffolder agent)
+- `/review` — Review code against project rules (invokes code-reviewer agent)
+- `/plan` — Plan a feature before implementing (invokes feature-planner agent)
+
+## Workflow
+
+1. **Plan first** for non-trivial features — `/plan` or plan mode
+2. **Scaffold** new files — `/scaffold` for multi-file creation with templates
+3. **Use skills** directly for single-file creation
+4. **Commit often** with the prefix system from commit-rules.md
+5. **Review before shipping** — `/review` to check against project rules

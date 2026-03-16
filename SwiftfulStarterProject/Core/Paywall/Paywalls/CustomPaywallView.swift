@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftfulUI
 
 struct CustomPaywallView: View {
     
@@ -43,7 +44,7 @@ struct CustomPaywallView: View {
                         .fontWeight(.medium)
                         .underline()
                         .foregroundStyle(.white)
-                        .anyButton(.plain) {
+                        .asButton {
                             onRestorePurchasePressed()
                         }
                         .padding(16)
@@ -60,7 +61,7 @@ struct CustomPaywallView: View {
                 .font(.title)
                 .padding(8)
                 .tappableBackground()
-                .anyButton(.plain, action: {
+                .asButton(action: {
                     onBackButtonPressed()
                 })
                 .padding(16)
@@ -89,7 +90,7 @@ struct CustomPaywallView: View {
         .background(Color(uiColor: .systemBackground))
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.3), radius: 8, x: 0, y: 2)
-        .anyButton(.press, action: {
+        .asButton(.press, action: {
             onPurchaseProductPressed(product)
         })
         .padding(16)

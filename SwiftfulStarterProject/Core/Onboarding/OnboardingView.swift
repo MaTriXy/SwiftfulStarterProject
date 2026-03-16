@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftfulUI
 import SwiftfulOnboarding
 
 struct OnboardingDelegate {

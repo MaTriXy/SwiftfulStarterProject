@@ -5,6 +5,7 @@
 //  
 //
 import SwiftUI
+import SwiftfulUI
 import SwiftfulAuthUI
 import SwiftfulRouting
 
@@ -49,7 +50,7 @@ struct CreateAccountView: View {
                 )
                 .frame(height: 55)
                 .frame(maxWidth: 400)
-                .anyButton(.press) {
+                .asButton(.press) {
                     presenter.onSignInApplePressed(delegate: delegate)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -61,7 +62,7 @@ struct CreateAccountView: View {
                 )
                 .frame(height: 55)
                 .frame(maxWidth: 400)
-                .anyButton(.press) {
+                .asButton(.press) {
                     presenter.onSignInGooglePressed(delegate: delegate)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)

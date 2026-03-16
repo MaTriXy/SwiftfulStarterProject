@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftfulUI
 import SDWebImageSwiftUI
 
 struct ImageLoaderView: View {
@@ -35,7 +36,7 @@ struct ImageLoaderView: View {
 #Preview {
     ImageLoaderView()
         .frame(width: 100, height: 200)
-        .anyButton(.highlight) {
+        .asButton(.highlight) {
             
         }
 }

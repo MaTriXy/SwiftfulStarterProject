@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftfulUI
 
 struct ProgressExampleDelegate {
     var eventParameters: [String: Any]? {

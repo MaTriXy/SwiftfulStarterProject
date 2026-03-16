@@ -5,6 +5,7 @@
 //  
 //
 import SwiftUI
+import SwiftfulUI
 
 struct WelcomeDelegate {
     var eventParameters: [String: Any]? {
@@ -60,7 +61,7 @@ struct WelcomeView: View {
                 .callToActionButton()
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
-                .anyButton(.press, action: {
+                .asButton(.press, action: {
                     presenter.onGetStartedPressed()
                 })
                 .accessibilityIdentifier("StartButton")

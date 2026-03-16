@@ -38,12 +38,6 @@ struct HomeView: View {
         .onDisappear {
             presenter.onViewDisappear(delegate: delegate)
         }
-        .onOpenURL { url in
-            presenter.handleDeepLink(url: url)
-        }
-        .onNotificationRecieved(name: .pushNotification) { notification in
-            presenter.handlePushNotificationRecieved(notification: notification)
-        }
     }
     
     private var devSettingsButton: some View {
@@ -56,7 +50,7 @@ struct HomeView: View {
             .background(Color.accent)
             .cornerRadius(12)
             .fixedSize(horizontal: true, vertical: false)
-            .anyButton(.press) {
+            .asButton(.press) {
                 presenter.onDevSettingsPressed()
             }
     }

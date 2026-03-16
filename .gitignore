@@ -53,3 +53,8 @@ fastlane/report.json
 # Environment-specific files
 .env
 .env.*
+
+# Claude Code local files
+.claude/settings.local.json
+.claude/agent-memory-local/
+.claude/rules/synced/

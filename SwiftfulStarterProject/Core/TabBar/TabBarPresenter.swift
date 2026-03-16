@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftfulUI
 
 struct TabBarTab: Identifiable {
     var id: String {

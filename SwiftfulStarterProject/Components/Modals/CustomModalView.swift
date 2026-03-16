@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftfulUI
 
 struct CustomModalView: View {
     
@@ -38,7 +39,7 @@ struct CustomModalView: View {
                     .background(.accent)
                     .foregroundStyle(.white)
                     .cornerRadius(16)
-                    .anyButton(.press) {
+                    .asButton(.press) {
                         primaryButtonAction()
                     }
                 
@@ -48,7 +49,7 @@ struct CustomModalView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
                     .tappableBackground()
-                    .anyButton(.plain) {
+                    .asButton {
                         secondaryButtonAction()
                     }
             }

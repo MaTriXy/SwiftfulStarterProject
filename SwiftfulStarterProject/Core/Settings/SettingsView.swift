@@ -5,6 +5,7 @@
 //  
 //
 import SwiftUI
+import SwiftfulUI
 
 struct SettingsView: View {
         
@@ -32,14 +33,14 @@ struct SettingsView: View {
             if presenter.isAnonymousUser {
                 Text("Save & back-up account")
                     .rowFormatting()
-                    .anyButton(.highlight) {
+                    .asButton(.highlight) {
                         presenter.onCreateAccountPressed()
                     }
                     .removeListRowFormatting()
             } else {
                 Text("Sign out")
                     .rowFormatting()
-                    .anyButton(.highlight) {
+                    .asButton(.highlight) {
                         presenter.onSignOutPressed()
                     }
                     .removeListRowFormatting()
@@ -48,7 +49,7 @@ struct SettingsView: View {
             Text("Delete account")
                 .foregroundStyle(.red)
                 .rowFormatting()
-                .anyButton(.highlight) {
+                .asButton(.highlight) {
                     presenter.onDeleteAccountPressed()
                 }
                 .removeListRowFormatting()
@@ -69,7 +70,7 @@ struct SettingsView: View {
                 }
             }
             .rowFormatting()
-            .anyButton(.highlight) {
+            .asButton(.highlight) {
 
             }
             .disabled(!isPremium)
@@ -102,7 +103,7 @@ struct SettingsView: View {
             Text("Contact us")
                 .foregroundStyle(.blue)
                 .rowFormatting()
-                .anyButton(.highlight, action: {
+                .asButton(.highlight, action: {
                     presenter.onContactUsPressed()
                 })
                 .removeListRowFormatting()
@@ -138,9 +139,9 @@ fileprivate extension View {
 #Preview("No auth") {
     let container = DevPreview.shared.container()
     container.register(AuthManager.self, service: AuthManager(service: MockAuthService(user: nil)))
-    container.register(UserManager.self, service: UserManager(services: MockUserServices(document: nil)))
+    container.register(UserManager.self, service: UserManager.mock())
     let builder = CoreBuilder(interactor: CoreInteractor(container: container))
-    
+
     return RouterView { router in
         builder.settingsView(router: router)
     }
@@ -148,9 +149,9 @@ fileprivate extension View {
 #Preview("Anonymous") {
     let container = DevPreview.shared.container()
     container.register(AuthManager.self, service: AuthManager(service: MockAuthService(user: UserAuthInfo.mock(isAnonymous: true))))
-    container.register(UserManager.self, service: UserManager(services: MockUserServices(document: .mock)))
+    container.register(UserManager.self, service: UserManager.mock(user: .mock))
     let builder = CoreBuilder(interactor: CoreInteractor(container: container))
-    
+
     return RouterView { router in
         builder.settingsView(router: router)
     }
@@ -158,7 +159,7 @@ fileprivate extension View {
 #Preview("Not anonymous") {
     let container = DevPreview.shared.container()
     container.register(AuthManager.self, service: AuthManager(service: MockAuthService(user: UserAuthInfo.mock(isAnonymous: false))))
-    container.register(UserManager.self, service: UserManager(services: MockUserServices(document: .mock)))
+    container.register(UserManager.self, service: UserManager.mock(user: .mock))
     let builder = CoreBuilder(interactor: CoreInteractor(container: container))
     
     return RouterView { router in
