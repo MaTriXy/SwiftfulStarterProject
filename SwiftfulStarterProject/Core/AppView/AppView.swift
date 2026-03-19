@@ -128,7 +128,6 @@ extension CoreBuilder {
         )
     }
 
-    
     private func sampleGamificationViewForMock(router: AnyRouter) -> some View {
         List {
             Button("Streaks") {
@@ -155,7 +154,7 @@ extension CoreRouter {
     
     func switchToCoreModule() {
         let delegate = ModuleWrapperDelegate(moduleId: Constants.tabbarModuleId)
-        router.showModule(.trailing, id: delegate.moduleId, onDismiss: nil) { router in
+        router.showModule(.top(animation: .snappy), id: delegate.moduleId, onDismiss: nil) { router in
             self.builder.coreModuleEntryView(router: router, delegate: delegate)
         }
     }
@@ -166,7 +165,7 @@ extension CoreRouter {
     
     func switchToOnboardingModule() {
         let delegate = ModuleWrapperDelegate(moduleId: Constants.onboardingModuleId)
-        router.showModule(.trailing, id: delegate.moduleId, onDismiss: nil) { router in
+        router.showModule(.bottom(animation: .snappy), id: delegate.moduleId, onDismiss: nil) { router in
             self.builder.onboardingModuleEntryView(router: router, delegate: delegate)
         }
     }
