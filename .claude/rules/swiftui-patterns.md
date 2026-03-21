@@ -78,6 +78,8 @@ Rules for building SwiftUI views and components in this project.
 - Create multiple named `#Preview` blocks for different states
 - Use `DevPreview.shared.container()` for the default mock container
 - To customize preview state, re-register specific services on the container to override defaults
+- **Components MUST also include a `#Preview("Variety")` block** showing multiple instances in a `ScrollView` + `VStack` (for list-style components) or `ScrollView` + `HStack`/`LazyVGrid` (for grid/card components). This makes it easy to see how the component looks across different data combinations and in context.
+- Use `Constants.randomImage` as the image URL in previews
 - Wrap in `RouterView` when the view needs routing context
 
 ```swift

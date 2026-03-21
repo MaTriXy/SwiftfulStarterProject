@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/firebase-ios-sdk.git",
       "state" : {
-        "revision" : "e2a3c3fbcaa1df3fd549b5b3f1175bc8a11912fd",
-        "version" : "12.2.0"
+        "revision" : "52548902007e7beda99fcdca31f62eccc4befe38",
+        "version" : "12.11.0"
       }
     },
     {
@@ -42,8 +42,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/googleads/google-ads-on-device-conversion-ios-sdk",
       "state" : {
-        "revision" : "a2d0f1f1666de591eb1a811f40b1706f5c63a2ed",
-        "version" : "2.3.0"
+        "revision" : "7b722132d1f2ab421c88a2e5c384c984cebd0d00",
+        "version" : "3.4.0"
       }
     },
     {
@@ -51,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleAppMeasurement.git",
       "state" : {
-        "revision" : "1c7edd5cc6e4ad22d2b81166bb9b208b9e63058a",
-        "version" : "12.2.0"
+        "revision" : "1657f705bc70255ff9d66dfcc697a85db164998f",
+        "version" : "12.11.0"
       }
     },
     {
@@ -141,8 +141,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/airbnb/lottie-ios.git",
       "state" : {
-        "revision" : "a004050748dc197c56256a14dca49a035d74726c",
-        "version" : "4.5.2"
+        "revision" : "0cb03fd7564d27345bcd96144b811e56212949c6",
+        "version" : "4.6.0"
       }
     },
     {
@@ -150,8 +150,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/mixpanel/mixpanel-swift.git",
       "state" : {
-        "revision" : "48d6668ceaaefc338f94e2b084c3cf77b90182f8",
-        "version" : "4.3.0"
+        "revision" : "c550cbef7654e59d06bf9c224ea25f681dea8975",
+        "version" : "4.4.0"
       }
     },
     {
@@ -177,8 +177,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-ios.git",
       "state" : {
-        "revision" : "617e18330db26337d39edd1c775cf782bdf40795",
-        "version" : "5.46.0"
+        "revision" : "abb0d68c3e7ba97b16ab51c38fcaca16b0e358c8",
+        "version" : "5.66.0"
       }
     },
     {
@@ -186,8 +186,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImage.git",
       "state" : {
-        "revision" : "10d06f6a33bafae8c164fbfd1f03391f6d4692b3",
-        "version" : "5.20.0"
+        "revision" : "2de3a496eaf6df9a1312862adcfd54acd73c39c0",
+        "version" : "5.21.7"
       }
     },
     {
@@ -195,8 +195,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
       "state" : {
-        "revision" : "451c6dfd5ecec2cf626d1d9ca81c2d4a60355172",
-        "version" : "3.1.3"
+        "revision" : "0e331457ca9af2f0b08bcaa138a91ffb907b004f",
+        "version" : "3.1.4"
       }
     },
     {
@@ -218,21 +218,12 @@
       }
     },
     {
-      "identity" : "swift-protobuf",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-protobuf.git",
-      "state" : {
-        "revision" : "ebc7251dd5b37f627c93698e4374084d98409633",
-        "version" : "1.28.2"
-      }
-    },
-    {
       "identity" : "swiftfulauthenticating",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulAuthenticating",
       "state" : {
-        "revision" : "aa0abd49faff19db01c5e7f499965a5330385db2",
-        "version" : "1.0.13"
+        "revision" : "51fe1d07dd309e2ca4598c0bb87f4cc9303e5652",
+        "version" : "1.0.15"
       }
     },
     {
@@ -240,8 +231,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulAuthenticatingFirebase",
       "state" : {
-        "revision" : "54ea8c8fd45e353bf9d2b3f4e03741af7ff1587a",
-        "version" : "1.0.12"
+        "revision" : "b517618b6fa126bbf8039b7dcab2a424f976ccf0",
+        "version" : "1.0.13"
       }
     },
     {
@@ -249,8 +240,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulDataManagers.git",
       "state" : {
-        "revision" : "1dd9c70ebb38e2e3e154c27cba7e52474b66bb92",
-        "version" : "2.0.1"
+        "revision" : "9c57a95bda5b2a37ff7a6bad9f085a6c80659820",
+        "version" : "2.0.2"
       }
     },
     {
@@ -258,17 +249,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulDataManagersFirebase.git",
       "state" : {
-        "revision" : "676598aa9fbc7663ac8f4e769a46de31f59b45da",
-        "version" : "2.0.4"
+        "revision" : "b153dcc7305a6d3a1a81da00e50852e3f86078d1",
+        "version" : "2.0.6"
       }
     },
     {
       "identity" : "swiftfulfirestore",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SwiftfulThinking/SwiftfulFirestore.git",
+      "location" : "https://github.com/SwiftfulThinking/SwiftfulFirestore",
       "state" : {
-        "revision" : "288c869297fd3615ce8791f2740760d36b3b8db1",
-        "version" : "11.0.4"
+        "revision" : "92e1cc8a44ce3ca8abf262f822c076cdf5b22f8f",
+        "version" : "11.0.6"
       }
     },
     {
@@ -276,8 +267,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulGamification.git",
       "state" : {
-        "revision" : "8a9e6a0a4eef6f7de86a9383318cee323fcdff7a",
-        "version" : "1.0.0"
+        "revision" : "64f7075b46f2354ba27e5d4a5854b456e594607b",
+        "version" : "1.0.2"
       }
     },
     {
@@ -303,8 +294,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulLogging.git",
       "state" : {
-        "revision" : "9056978bec36107baab7e261b8d15b0e9b11a37d",
-        "version" : "1.2.1"
+        "revision" : "4312bd516451dd349c39c8079a9aca7000ebcf6f",
+        "version" : "1.2.2"
       }
     },
     {
@@ -312,8 +303,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulLoggingFirebaseAnalytics",
       "state" : {
-        "revision" : "568874198f8b227e3dc95a23c2278c5864ad480d",
-        "version" : "1.1.4"
+        "revision" : "14c1b30ecd5cc8395b4069414ab51d5b3ceafac1",
+        "version" : "1.1.5"
       }
     },
     {
@@ -339,8 +330,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulOnboarding.git",
       "state" : {
-        "revision" : "55cdf8497d56b8557f0a430d0ec25477641991f7",
-        "version" : "1.0.0"
+        "revision" : "bf3926307b2034ec5d175a671f14fef49167fb63",
+        "version" : "1.0.4"
       }
     },
     {
@@ -348,8 +339,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulPurchasing",
       "state" : {
-        "revision" : "106276f84fa17fff0958edebca7a1b8839fa3f9c",
-        "version" : "1.0.6"
+        "revision" : "e8326fdc299afef1ebf77ff2068481e1c04bec29",
+        "version" : "1.1.2"
       }
     },
     {
@@ -357,8 +348,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulPurchasingRevenueCat",
       "state" : {
-        "revision" : "271643f2174543a4d7a84889c9e402c66dbf9fde",
-        "version" : "1.0.2"
+        "revision" : "e5c9d2154ac3b653073a9e8d6cd51ff5678a723b",
+        "version" : "1.0.3"
       }
     },
     {
@@ -375,8 +366,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulRouting",
       "state" : {
-        "revision" : "293106d9a3630a0350e5fee15bddcbff7d7226a4",
-        "version" : "6.1.9"
+        "revision" : "4f3edfebf093f654fc2c2ac08cab628c18c14333",
+        "version" : "6.2.0"
       }
     },
     {
@@ -393,8 +384,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulUI",
       "state" : {
-        "revision" : "9c60de1e6743c917d4a5fb0299fb32c799fa18af",
-        "version" : "1.2.3"
+        "revision" : "2cb71cdb1115d2c3a2677e693ab6b0b0b1146bc8",
+        "version" : "1.2.4"
       }
     },
     {
@@ -402,8 +393,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SwiftfulThinking/SwiftfulUtilities",
       "state" : {
-        "revision" : "94c122e1e58cbcbe117200df211cf08ca6f5d6fb",
-        "version" : "1.1.6"
+        "revision" : "0777a01590a663ee4ff4393ee824afd9adcc9a03",
+        "version" : "1.1.8"
       }
     }
   ],
